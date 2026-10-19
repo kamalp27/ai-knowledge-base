@@ -3,10 +3,11 @@
 # ==============================================================================
 FROM python:3.12-slim
 
-# System dependencies: curl for container health checks, sqlite3 for database ops
+# System dependencies: curl for container health checks, sqlite3, and gosu for step-down from root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     sqlite3 \
+    gosu \
     && rm -rf /var/lib/apt/lists/*
 
 # Optimize Python execution and configure default container paths
@@ -31,16 +32,15 @@ COPY backend/requirements.txt ./backend/requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r ./backend/requirements.txt
 
-# Copy backend codebase and configuration
+# Copy backend codebase, entrypoint, and configuration
 COPY backend/ ./backend/
 COPY pytest.ini ./
+COPY scripts/entrypoint.sh /app/scripts/entrypoint.sh
+RUN chmod +x /app/scripts/entrypoint.sh
 
 # Ensure storage directories exist and assign ownership to appuser
 RUN mkdir -p /app/data/raw_documents /app/data/vector_store /app/data/eval_datasets && \
     chown -R appuser:appuser /app
-
-# Switch to unprivileged runtime user
-USER appuser
 
 # Expose container network port
 EXPOSE 8000
@@ -48,6 +48,9 @@ EXPOSE 8000
 # Container liveness & readiness check using application /ready probe
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
     CMD curl -f http://localhost:${PORT:-8000}/ready || exit 1
+
+# Entrypoint configures volume permissions on startup, then drops privileges to appuser
+ENTRYPOINT ["/app/scripts/entrypoint.sh"]
 
 # Start ASGI server binding to 0.0.0.0 and dynamically resolving platform $PORT
 CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
