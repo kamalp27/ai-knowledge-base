@@ -1,0 +1,57 @@
+# ==============================================================================
+# Render Blueprint Specification for AI Knowledge Base
+# Documentation: https://render.com/docs/blueprint-spec
+# ==============================================================================
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Backend Web Service (FastAPI + ChromaDB + Sentence Transformers)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: ai-knowledge-base-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter  # Starter or higher plan required for persistent disk mounting on Render
+    region: oregon
+    healthCheckPath: /ready
+    disk:
+      name: knowledge-base-storage
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        # Update with your actual static frontend domain after initial provisioning:
+        value: "https://ai-knowledge-base-frontend.onrender.com"
+      - key: DATA_DIR
+        value: /app/data
+      - key: RAW_DOCUMENTS_DIR
+        value: /app/data/raw_documents
+      - key: VECTOR_STORE_DIR
+        value: /app/data/vector_store
+      - key: METADATA_DB_PATH
+        value: /app/data/metadata.db
+      - key: LLM_PROVIDER
+        # Set to "openai", "anthropic", or "fake" in the Render Dashboard:
+        sync: false
+      - key: OPENAI_API_KEY
+        # Set securely in the Render Dashboard (Environment tab):
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        # Set securely in the Render Dashboard (Environment tab):
+        sync: false
+
+  # ----------------------------------------------------------------------------
+  # 2. Frontend Static Site (React 18 + TypeScript + Vite)
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: ai-knowledge-base-frontend
+    runtime: static
+    buildCommand: npm --prefix frontend install && npm --prefix frontend run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        # Set to the backend service URL after initial provisioning:
+        value: "https://ai-knowledge-base-backend.onrender.com/api/v1"

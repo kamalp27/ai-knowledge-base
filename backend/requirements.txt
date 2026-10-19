@@ -1,0 +1,23 @@
+# Fast API & ASGI Server
+fastapi>=0.111.0,<1.0.0
+uvicorn[standard]>=0.30.0,<1.0.0
+python-multipart>=0.0.9
+
+# Settings & Data Validation
+pydantic>=2.7.0,<3.0.0
+pydantic-settings>=2.3.0,<3.0.0
+python-dotenv>=1.0.1,<2.0.0
+
+# Document Ingestion & Parsing
+pymupdf>=1.24.0
+
+# Embeddings & Vector Database
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# HTTP Client & LLM Integrations
+httpx>=0.27.0,<1.0.0
+
+# Testing
+pytest>=8.2.0,<9.0.0
+pytest-asyncio>=0.23.7,<1.0.0

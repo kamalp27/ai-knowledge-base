@@ -1,0 +1,16 @@
+Principles of Quantum Computing and Physical Realizations
+
+Section 1: Qubit Representations and Superposition
+Unlike classical digital bits constrained to binary state 0 or state 1, quantum bits (qubits) exist as linear superpositions represented mathematically on the Bloch sphere by the state vector |ψ⟩ = α|0⟩ + β|1⟩, where complex probability amplitudes satisfy |α|^2 + |β|^2 = 1. When measured in the computational basis, a qubit collapses stochastically to |0⟩ with probability |α|^2 or |1⟩ with probability |β|^2.
+
+Section 2: Quantum Entanglement and Bell States
+Entanglement is a non-local quantum correlation between two or more qubits where the composite quantum state cannot be decomposed into product states of individual subsystems. Maximally entangled two-qubit pairs are known as Bell states: |Φ+⟩ = (|00⟩ + |11⟩) / √2. Entanglement provides the quantum speedup mechanism powering quantum key distribution (QKD) and superdense coding protocols.
+
+Section 3: Physical Qubit Modalities and Cryogenics
+Superconducting transmon circuits utilize Josephson junctions acting as non-linear inductors to isolate the lower two energy states. Because thermal energy (k_B * T) would instantly excite the qubits and induce thermal decoherence, superconducting quantum processors must operate inside multi-stage dilution refrigerators maintained at base temperatures of approximately 10 to 15 millikelvin (-273.14 degrees Celsius).
+
+Section 4: Decoherence Times and Quantum Error Correction
+Qubit reliability is fundamentally limited by two characteristic relaxation timescales:
+- T1 Relaxation Time: The longitudinal energy relaxation duration required for an excited state |1⟩ to decay spontaneously into the ground state |0⟩.
+- T2 Dephasing Time: The transverse phase coherence duration over which superposition relative phase information is corrupted by magnetic and electromagnetic noise.
+Surface codes utilize topological arrangements of physical data qubits and syndrome measurement ancilla qubits to detect bit-flip and phase-flip errors without collapsing the underlying encoded logical qubit.

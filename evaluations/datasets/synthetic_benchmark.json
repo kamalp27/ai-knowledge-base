@@ -1,0 +1,150 @@
+{
+  "benchmark_metadata": {
+    "name": "Synthetic RAG Evaluation Benchmark",
+    "version": "1.0.0",
+    "description": "Deterministic benchmark for measuring retrieval Recall@k, Mean Reciprocal Rank (MRR), and unanswerable question abstention accuracy across synthetic PDF, Markdown, and text documents.",
+    "total_questions": 10,
+    "answerable_questions": 7,
+    "unanswerable_questions": 3,
+    "corpus_documents": [
+      "photovoltaic_systems.md",
+      "quantum_computing_principles.txt",
+      "distributed_consensus_guide.pdf"
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What base temperature do dilution refrigerators maintain for superconducting quantum processors?",
+      "category": "single_passage",
+      "is_answerable": true,
+      "expected_answer": "Superconducting quantum processors operate inside dilution refrigerators at approximately 10 to 15 millikelvin (-273.14 degrees Celsius).",
+      "expected_sources": [
+        {
+          "document_filename": "quantum_computing_principles.txt",
+          "expected_substrings": ["10 to 15 millikelvin", "dilution refrigerators"]
+        }
+      ],
+      "notes": "Single passage retrieval from Section 3 of quantum computing document."
+    },
+    {
+      "id": "q2",
+      "question": "What conversion efficiency range do monocrystalline silicon solar cells achieve?",
+      "category": "single_passage",
+      "is_answerable": true,
+      "expected_answer": "Monocrystalline silicon cells achieve commercial laboratory conversion efficiencies between 20.0% and 24.5%.",
+      "expected_sources": [
+        {
+          "document_filename": "photovoltaic_systems.md",
+          "expected_substrings": ["20.0% to 24.5%", "Monocrystalline Silicon"]
+        }
+      ],
+      "notes": "Single passage retrieval from Section 1 of photovoltaic systems document."
+    },
+    {
+      "id": "q3",
+      "question": "What are the three operational states of a node in a Raft consensus cluster?",
+      "category": "single_passage",
+      "is_answerable": true,
+      "expected_answer": "Nodes in a Raft cluster exist in one of three states: Follower, Candidate, or Leader.",
+      "expected_sources": [
+        {
+          "document_filename": "distributed_consensus_guide.pdf",
+          "expected_substrings": ["Follower, Candidate, or Leader", "three states"]
+        }
+      ],
+      "notes": "Page 1 of distributed consensus PDF."
+    },
+    {
+      "id": "q4",
+      "question": "How do monocrystalline and polycrystalline solar cells compare in efficiency and temperature coefficient?",
+      "category": "cross_passage",
+      "is_answerable": true,
+      "expected_answer": "Monocrystalline cells have 20.0%-24.5% efficiency and a temperature coefficient between -0.30%/°C and -0.38%/°C, while polycrystalline cells have 15.0%-18.5% efficiency and a higher negative temperature coefficient between -0.39%/°C and -0.45%/°C.",
+      "expected_sources": [
+        {
+          "document_filename": "photovoltaic_systems.md",
+          "expected_substrings": ["Monocrystalline Silicon", "Polycrystalline Silicon"]
+        },
+        {
+          "document_filename": "photovoltaic_systems.md",
+          "expected_substrings": ["temperature coefficient", "-0.30%/°C"]
+        }
+      ],
+      "notes": "Cross-passage question requiring Sections 1 and 2 of photovoltaic systems document."
+    },
+    {
+      "id": "q5",
+      "question": "What is the difference between T1 relaxation time and T2 dephasing time in qubits?",
+      "category": "single_passage",
+      "is_answerable": true,
+      "expected_answer": "T1 is the longitudinal energy relaxation duration for an excited state to decay to ground state, while T2 is the transverse phase coherence duration over which relative phase information is corrupted.",
+      "expected_sources": [
+        {
+          "document_filename": "quantum_computing_principles.txt",
+          "expected_substrings": ["T1 Relaxation Time", "T2 Dephasing Time"]
+        }
+      ],
+      "notes": "Section 4 of quantum computing principles."
+    },
+    {
+      "id": "q6",
+      "question": "What timer range triggers leader election in Raft, and how is split-brain prevented?",
+      "category": "cross_passage",
+      "is_answerable": true,
+      "expected_answer": "Randomized election timeouts range from 150 to 300 milliseconds. Split-brain is prevented because electing a leader requires a strict quorum majority overlapping with the previous log commit quorum.",
+      "expected_sources": [
+        {
+          "document_filename": "distributed_consensus_guide.pdf",
+          "expected_substrings": ["150 milliseconds and 300 milliseconds", "RequestVote"]
+        },
+        {
+          "document_filename": "distributed_consensus_guide.pdf",
+          "expected_substrings": ["Split-brain protection", "quorum majority"]
+        }
+      ],
+      "notes": "Cross-passage question spanning Pages 2 and 3 of distributed consensus PDF."
+    },
+    {
+      "id": "q7",
+      "question": "What are the three power inverter topologies used in photovoltaic systems?",
+      "category": "single_passage",
+      "is_answerable": true,
+      "expected_answer": "The three inverter topologies are Central Inverters, String Inverters, and Microinverters.",
+      "expected_sources": [
+        {
+          "document_filename": "photovoltaic_systems.md",
+          "expected_substrings": ["Central Inverters", "String Inverters", "Microinverters"]
+        }
+      ],
+      "notes": "Section 3 of photovoltaic systems guide."
+    },
+    {
+      "id": "q8",
+      "question": "What was the annual stock dividend paid by QuantumChip Corp in 2024?",
+      "category": "unanswerable",
+      "is_answerable": false,
+      "expected_answer": "I could not find sufficient evidence in the uploaded documents to answer your question.",
+      "expected_sources": [],
+      "notes": "Intentionally unanswerable. No financial or corporate dividend data exists in the corpus."
+    },
+    {
+      "id": "q9",
+      "question": "What is the recommended dosage of vitamin C for solar panel maintenance technicians?",
+      "category": "unanswerable",
+      "is_answerable": false,
+      "expected_answer": "I could not find sufficient evidence in the uploaded documents to answer your question.",
+      "expected_sources": [],
+      "notes": "Intentionally unanswerable. No nutritional or medical guidance exists in the solar guide."
+    },
+    {
+      "id": "q10",
+      "question": "How do you configure Kubernetes ingress routing for Raft leader elections?",
+      "category": "unanswerable",
+      "is_answerable": false,
+      "expected_answer": "I could not find sufficient evidence in the uploaded documents to answer your question.",
+      "expected_sources": [],
+      "notes": "Intentionally unanswerable. The consensus document discusses algorithmic state machine replication, not Kubernetes ingress."
+    }
+  ]
+}

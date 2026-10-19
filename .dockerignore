@@ -1,0 +1,46 @@
+# Version Control
+.git/
+.gitignore
+
+# Python Bytecode and Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local Environment Secrets (CRITICAL: Never bake secrets into image)
+.env
+.env.*
+*.pem
+*.key
+*.cert
+*.crt
+
+# Local Data and Persistent Storage (CRITICAL: Mount externally via volume/disk)
+data/
+data/raw_documents/*
+data/vector_store/*
+data/eval_datasets/*
+*.db
+*.sqlite
+*.sqlite3
+
+# Evaluation Outputs
+evaluations/reports/*.json
+
+# Frontend Application (Backend container does not serve static files directly)
+frontend/
+
+# Local Operating System & IDE Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
