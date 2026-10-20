@@ -1,5 +1,6 @@
 import React from 'react';
 import { ApiStatusState } from '../types';
+import { API_BASE_URL } from '../services/api';
 
 interface HealthStatusProps {
   statusState: ApiStatusState;
@@ -34,7 +35,7 @@ export const HealthStatus: React.FC<HealthStatusProps> = ({ statusState, onRefre
           <div className="alert alert-error">
             <strong>Connection Error:</strong> {error}
             <div className="alert-hint">
-              Ensure FastAPI backend is running on <code>http://localhost:8000</code>.
+              Verify backend is running at <code>{API_BASE_URL}</code> and permits CORS from this origin.
             </div>
           </div>
         )}

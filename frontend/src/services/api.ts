@@ -20,7 +20,17 @@ function resolveApiBaseUrl(): string {
   return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
 }
 
-const API_BASE_URL = resolveApiBaseUrl();
+export const API_BASE_URL = resolveApiBaseUrl();
+
+/**
+ * Derives the OpenAPI Swagger docs URL corresponding to the active backend.
+ */
+export function getApiDocsUrl(): string {
+  if (API_BASE_URL.startsWith('/')) {
+    return '/docs';
+  }
+  return API_BASE_URL.replace(/\/api\/v1\/?$/, '/docs');
+}
 
 export class ApiError extends Error {
   statusCode: number;

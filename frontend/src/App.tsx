@@ -3,7 +3,7 @@ import { HealthStatus } from './components/HealthStatus';
 import { DocumentUpload } from './components/DocumentUpload';
 import { DocumentLibrary } from './components/DocumentLibrary';
 import { QuestionAnswering } from './components/QuestionAnswering';
-import { fetchDocuments, fetchHealth, fetchReadiness } from './services/api';
+import { fetchDocuments, fetchHealth, fetchReadiness, getApiDocsUrl } from './services/api';
 import { ApiStatusState, DocumentMetadata } from './types';
 import './App.css';
 
@@ -100,7 +100,7 @@ export function App() {
             </button>
             <div className="quick-links">
               <a
-                href="http://localhost:8000/docs"
+                href={getApiDocsUrl()}
                 target="_blank"
                 rel="noreferrer"
                 className="link-pill"
