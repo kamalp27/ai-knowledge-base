@@ -24,6 +24,7 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "https://ai-knowledge-base-production-49a8.up.railway.app",
+        "https://kamalp27.github.io",
     ]
 
     @field_validator("CORS_ORIGINS", mode="before")
